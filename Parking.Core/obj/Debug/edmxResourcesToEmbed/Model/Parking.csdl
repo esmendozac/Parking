@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParkingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ParkingEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Calibracions" EntityType="ParkingModel.Calibracion" />
+    <EntitySet Name="EspacioDelimitadoes" EntityType="ParkingModel.EspacioDelimitado" />
+    <EntitySet Name="Lotes" EntityType="ParkingModel.Lote" />
+    <EntitySet Name="Rols" EntityType="ParkingModel.Rol" />
+    <EntitySet Name="Usuarios" EntityType="ParkingModel.Usuario" />
+    <EntitySet Name="UsuarioLotes" EntityType="ParkingModel.UsuarioLote" />
+    <AssociationSet Name="FK_Calibracion_Lote" Association="ParkingModel.FK_Calibracion_Lote">
+      <End Role="Lote" EntitySet="Lotes" />
+      <End Role="Calibracion" EntitySet="Calibracions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calibracion_Usuario" Association="ParkingModel.FK_Calibracion_Usuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Calibracion" EntitySet="Calibracions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EspacioDelimitado_Calibracion" Association="ParkingModel.FK_EspacioDelimitado_Calibracion">
+      <End Role="Calibracion" EntitySet="Calibracions" />
+      <End Role="EspacioDelimitado" EntitySet="EspacioDelimitadoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioLote_Lote" Association="ParkingModel.FK_UsuarioLote_Lote">
+      <End Role="Lote" EntitySet="Lotes" />
+      <End Role="UsuarioLote" EntitySet="UsuarioLotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="ParkingModel.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rols" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioLote_Usuario" Association="ParkingModel.FK_UsuarioLote_Usuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="UsuarioLote" EntitySet="UsuarioLotes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Calibracion">
+    <Key>
+      <PropertyRef Name="IdCalibracion" />
+    </Key>
+    <Property Name="IdCalibracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="IdLote" Type="Int32" />
+    <Property Name="Habilitada" Type="Boolean" />
+    <Property Name="Eliminado" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Lote" Relationship="ParkingModel.FK_Calibracion_Lote" FromRole="Calibracion" ToRole="Lote" />
+    <NavigationProperty Name="Usuario" Relationship="ParkingModel.FK_Calibracion_Usuario" FromRole="Calibracion" ToRole="Usuario" />
+    <NavigationProperty Name="EspacioDelimitadoes" Relationship="ParkingModel.FK_EspacioDelimitado_Calibracion" FromRole="Calibracion" ToRole="EspacioDelimitado" />
+  </EntityType>
+  <EntityType Name="EspacioDelimitado">
+    <Key>
+      <PropertyRef Name="IdEspacioDelimitado" />
+    </Key>
+    <Property Name="IdEspacioDelimitado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Coord1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Habilitado" Type="Boolean" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Eliminado" Type="DateTime" Precision="3" />
+    <Property Name="IdCalibracion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Calibracion" Relationship="ParkingModel.FK_EspacioDelimitado_Calibracion" FromRole="EspacioDelimitado" ToRole="Calibracion" />
+  </EntityType>
+  <EntityType Name="Lote">
+    <Key>
+      <PropertyRef Name="IdLote" />
+    </Key>
+    <Property Name="IdLote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Nit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Calibracions" Relationship="ParkingModel.FK_Calibracion_Lote" FromRole="Lote" ToRole="Calibracion" />
+    <NavigationProperty Name="UsuarioLotes" Relationship="ParkingModel.FK_UsuarioLote_Lote" FromRole="Lote" ToRole="UsuarioLote" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuarios" Relationship="ParkingModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Contrasena" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="IdRol" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="Eliminado" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Calibracions" Relationship="ParkingModel.FK_Calibracion_Usuario" FromRole="Usuario" ToRole="Calibracion" />
+    <NavigationProperty Name="Rol" Relationship="ParkingModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+    <NavigationProperty Name="UsuarioLotes" Relationship="ParkingModel.FK_UsuarioLote_Usuario" FromRole="Usuario" ToRole="UsuarioLote" />
+  </EntityType>
+  <EntityType Name="UsuarioLote">
+    <Key>
+      <PropertyRef Name="IdUsuarioLote" />
+    </Key>
+    <Property Name="IdUsuarioLote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="IdLote" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="Eliminado" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Lote" Relationship="ParkingModel.FK_UsuarioLote_Lote" FromRole="UsuarioLote" ToRole="Lote" />
+    <NavigationProperty Name="Usuario" Relationship="ParkingModel.FK_UsuarioLote_Usuario" FromRole="UsuarioLote" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK_Calibracion_Lote">
+    <End Type="ParkingModel.Lote" Role="Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.Calibracion" Role="Calibracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="Calibracion">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calibracion_Usuario">
+    <End Type="ParkingModel.Usuario" Role="Usuario" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.Calibracion" Role="Calibracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Calibracion">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EspacioDelimitado_Calibracion">
+    <End Type="ParkingModel.Calibracion" Role="Calibracion" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.EspacioDelimitado" Role="EspacioDelimitado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Calibracion">
+        <PropertyRef Name="IdCalibracion" />
+      </Principal>
+      <Dependent Role="EspacioDelimitado">
+        <PropertyRef Name="IdCalibracion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioLote_Lote">
+    <End Type="ParkingModel.Lote" Role="Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.UsuarioLote" Role="UsuarioLote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="UsuarioLote">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Type="ParkingModel.Rol" Role="Rol" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioLote_Usuario">
+    <End Type="ParkingModel.Usuario" Role="Usuario" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingModel.UsuarioLote" Role="UsuarioLote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="UsuarioLote">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

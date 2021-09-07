@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParkingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Calibracion">
+    <Key>
+      <PropertyRef Name="IdCalibracion" />
+    </Key>
+    <Property Name="IdCalibracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="IdLote" Type="int" />
+    <Property Name="Habilitada" Type="bit" />
+    <Property Name="Eliminado" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EspacioDelimitado">
+    <Key>
+      <PropertyRef Name="IdEspacioDelimitado" />
+    </Key>
+    <Property Name="IdEspacioDelimitado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Coord1" Type="varchar" MaxLength="50" />
+    <Property Name="Coord2" Type="varchar" MaxLength="50" />
+    <Property Name="Coord3" Type="varchar" MaxLength="50" />
+    <Property Name="Coord4" Type="varchar" MaxLength="50" />
+    <Property Name="Habilitado" Type="bit" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Eliminado" Type="datetime" />
+    <Property Name="IdCalibracion" Type="int" />
+    <Property Name="FechaCreacion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Lote">
+    <Key>
+      <PropertyRef Name="IdLote" />
+    </Key>
+    <Property Name="IdLote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" />
+    <Property Name="Nit" Type="varchar" MaxLength="200" />
+    <Property Name="Email" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="100" />
+    <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+    <Property Name="Identificacion" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Contrasena" Type="varchar" MaxLength="200" />
+    <Property Name="IdRol" Type="int" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="Eliminado" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UsuarioLote">
+    <Key>
+      <PropertyRef Name="IdUsuarioLote" />
+    </Key>
+    <Property Name="IdUsuarioLote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="IdLote" Type="int" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="Eliminado" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Calibracion_Lote">
+    <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Calibracion" Type="Self.Calibracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="Calibracion">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calibracion_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Calibracion" Type="Self.Calibracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Calibracion">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EspacioDelimitado_Calibracion">
+    <End Role="Calibracion" Type="Self.Calibracion" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="EspacioDelimitado" Type="Self.EspacioDelimitado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Calibracion">
+        <PropertyRef Name="IdCalibracion" />
+      </Principal>
+      <Dependent Role="EspacioDelimitado">
+        <PropertyRef Name="IdCalibracion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioLote_Lote">
+    <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UsuarioLote" Type="Self.UsuarioLote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="UsuarioLote">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioLote_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UsuarioLote" Type="Self.UsuarioLote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="UsuarioLote">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ParkingModelStoreContainer">
+    <EntitySet Name="Calibracion" EntityType="Self.Calibracion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EspacioDelimitado" EntityType="Self.EspacioDelimitado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsuarioLote" EntityType="Self.UsuarioLote" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Calibracion_Lote" Association="Self.FK_Calibracion_Lote">
+      <End Role="Lote" EntitySet="Lote" />
+      <End Role="Calibracion" EntitySet="Calibracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calibracion_Usuario" Association="Self.FK_Calibracion_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Calibracion" EntitySet="Calibracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EspacioDelimitado_Calibracion" Association="Self.FK_EspacioDelimitado_Calibracion">
+      <End Role="Calibracion" EntitySet="Calibracion" />
+      <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioLote_Lote" Association="Self.FK_UsuarioLote_Lote">
+      <End Role="Lote" EntitySet="Lote" />
+      <End Role="UsuarioLote" EntitySet="UsuarioLote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioLote_Usuario" Association="Self.FK_UsuarioLote_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="UsuarioLote" EntitySet="UsuarioLote" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
