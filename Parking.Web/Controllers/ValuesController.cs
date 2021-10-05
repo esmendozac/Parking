@@ -10,6 +10,8 @@ namespace Parking.Web.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
+        [Route("api/value")]
+
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

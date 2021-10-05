@@ -28,7 +28,7 @@ namespace Parking.Console
 
             Program p = new Program();
 
-            p.CrearUsuario(3,"Ana","Maria no me gustan los lunes","1033800438", "ana@gmail.com", "1234");
+            p.CrearUsuario(1,"LA","LO","987654321", "JC@gmail.com", "56789");
 
             System.Console.ReadKey();
         }
@@ -45,6 +45,7 @@ namespace Parking.Console
                 Identificacion = identificación,
                 Email = email,
                 Contrasena = contrasena
+             
             };
 
             administracion.SaveUsuario(usuario);

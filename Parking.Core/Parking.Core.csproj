@@ -139,6 +139,8 @@
       <DependentUpon>Parking.tt</DependentUpon>
     </Compile>
     <Compile Include="Negocio\Administracion.cs" />
+    <Compile Include="Negocio\ModuloCalibracion.cs" />
+    <Compile Include="Negocio\ModuloEspacioDelimitado.cs" />
     <Compile Include="Negocio\Maestro.cs" />
     <Compile Include="Negocio\ModuloUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,7 +32,8 @@ namespace Parking.Core.Negocio
         /// <returns></returns>
         public List<Usuario> GetUsuarios()
         {
-            return this.Repositorio.GetAll<Usuario>().ToList();
+            //return this.Repositorio.GetAll<Usuario>().ToList();
+           return this.Repositorio.GetAll<Usuario>().Where(mod => mod.Eliminado == null).ToList();
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace Parking.Core.Negocio
         public Usuario GetUsuario(int id)
         {
             //Consulta el usuarios
-            Usuario usuario = this.Repositorio.GetAll<Usuario>().Where(u => u.IdUsuario == id).ToList().FirstOrDefault();
+            Usuario usuario = this.Repositorio.GetAll<Usuario>().Where(mod => mod.IdUsuario == id && mod.Eliminado == null).ToList().FirstOrDefault();
 
             return usuario;
         }
@@ -92,8 +93,19 @@ namespace Parking.Core.Negocio
         /// <param name="id"></param>
         public void EliminarUsuario(int id)
         {
-            this.Repositorio.Delete<Usuario>(id);
+             Usuario consultado = this.GetUsuario(id);
+             consultado.Eliminado = DateTime.Now;
+            foreach (var c in consultado.Calibracions)
+            {
+                c.Eliminado = DateTime.Now;
+                foreach (var ed in c.EspacioDelimitadoes)
+                {
+                    ed.Eliminado = DateTime.Now;
+                }
+            }
+            //this.Repositorio.Delete<Usuario>(id);
             this.Repositorio.Commit();
+            
         }
 
     }

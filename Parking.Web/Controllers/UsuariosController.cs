@@ -37,7 +37,7 @@ namespace Parking.Web.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception( "Error al consultar los usuarios", ex);
+                throw new Exception("Error al consultar los usuarios", ex);
             }
         }
 

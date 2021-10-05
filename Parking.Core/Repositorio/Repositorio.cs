@@ -93,12 +93,12 @@ namespace Parking.Core.Repositorio
         public virtual void Delete<T>(T entityToDelete) where T : class
         {
             if (this.DataContext.Entry(entityToDelete).State == EntityState.Detached)
+                
                 this.DataContext.Set<T>().Attach(entityToDelete);
 
             //this.DataContext.Entry(entityToDelete).State = EntityState.Modified;
-
             this.DataContext.Set<T>().Remove(entityToDelete);
-
+            //this.DataContext.Set<T>().Find(entityToDelete);
             //this.DataContext.
         }
 
