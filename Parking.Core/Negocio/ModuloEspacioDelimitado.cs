@@ -42,6 +42,7 @@ namespace Parking.Core.Negocio
         {
             //Consulta el usuarios
             EspacioDelimitado espaciodelimitado = this.Repositorio.GetAll<EspacioDelimitado>().Where(mod => mod.IdEspacioDelimitado == id && mod.Eliminado == null).ToList().FirstOrDefault();
+           
 
             return espaciodelimitado;
         }
@@ -51,11 +52,24 @@ namespace Parking.Core.Negocio
         /// Crea un item de la lista 
         /// </summary>
         /// <param name="espaciodelimitado"></param>
+        /// <param name="id"></param>
+
         public void CrearEspacioDelimitado(EspacioDelimitado espaciodelimitado)
         {
-            this.Repositorio.Insert(espaciodelimitado);
-
-            this.Repositorio.Commit();
+            ///Consulto 
+            Model.Calibracion calibracionprueba = this.Repositorio.Get<Calibracion>().Where(mod => mod.IdCalibracion == espaciodelimitado.IdCalibracion).ToList().FirstOrDefault();
+            if (calibracionprueba != null)
+            {
+                if (calibracionprueba.Eliminado == null)
+                {
+                    this.Repositorio.Insert(espaciodelimitado);
+                    this.Repositorio.Commit();
+                }
+                else
+                    throw new Exception($"No se encontró el usuario con id {espaciodelimitado.IdCalibracion}");
+            }
+            else
+                throw new Exception($"No se encontró el usuario con id {espaciodelimitado.IdCalibracion}");
         }
 
 

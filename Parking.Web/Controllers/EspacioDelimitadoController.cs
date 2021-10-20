@@ -75,9 +75,17 @@ namespace Parking.Web.Controllers
         [ResponseType(typeof(EspacioDelimitado))]
         public IHttpActionResult PostEspacioDelimitado(EspacioDelimitado espaciodelimitado)
         {
-            this.modulo.CrearEspacioDelimitado(espaciodelimitado);
+            try
+            {
+                this.modulo.CrearEspacioDelimitado(espaciodelimitado);
 
-            return Ok(espaciodelimitado);
+                return Ok(espaciodelimitado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [Route("api/espaciodelimitado/{id}")]

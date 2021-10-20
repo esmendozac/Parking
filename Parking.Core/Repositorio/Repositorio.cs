@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,7 +81,12 @@ namespace Parking.Core.Repositorio
         }
 
         public virtual void Insert<T>(T entity) where T : class
-        {
+        {  
+            PropertyInfo FechaCreacion = entity.GetType().GetProperty("FechaCreacion");
+            if (FechaCreacion !=null)
+            {
+                FechaCreacion.SetValue(entity, DateTime.Now,null);
+            }
             this.DataContext.Set<T>().Add(entity);
         }
 

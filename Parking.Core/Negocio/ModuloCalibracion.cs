@@ -53,9 +53,15 @@ namespace Parking.Core.Negocio
         /// <param name="calibracion"></param>
         public void CrearCalibracion(Calibracion calibracion)
         {
-            this.Repositorio.Insert(calibracion);
+            Model.Usuario usuarioprueba = this.Repositorio.Get<Usuario>().Where(mod => mod.IdUsuario == calibracion.IdUsuario).ToList().FirstOrDefault();
+            if (usuarioprueba.Eliminado == null)
+            {
+                this.Repositorio.Insert(calibracion);
+                this.Repositorio.Commit();
+            }
+            else
+                throw new Exception($"No se encontró el usuario con id");
 
-            this.Repositorio.Commit();
         }
 
 
@@ -89,10 +95,21 @@ namespace Parking.Core.Negocio
         /// <param name="id"></param>
         public void EliminarCalibracion(int id)
         {
+
+            //this.Repositorio.Delete<Calibracion>(id);
+
+
             Calibracion consultado = this.GetCalibracion(id);
             consultado.Eliminado = DateTime.Now;
-            //this.Repositorio.Delete<Calibracion>(id);
+
+                foreach (var ed in consultado.EspacioDelimitadoes)
+                {
+                    ed.Eliminado = DateTime.Now;
+                }
+            
+            //this.Repositorio.Delete<Usuario>(id);
             this.Repositorio.Commit();
+
         }
 
     }
