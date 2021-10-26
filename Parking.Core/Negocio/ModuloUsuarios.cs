@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Parking.Core.Model;
+using Parking.Core.Utilidades;
+using System.Text.RegularExpressions;
+
 namespace Parking.Core.Negocio
 {
     public class ModuloUsuarios : Maestro
@@ -49,6 +52,30 @@ namespace Parking.Core.Negocio
             return usuario;
         }
 
+        /// <summary>
+        /// Consulta un unico usuario a partir del numero de identificación 
+        /// </summary>
+        /// <param name="identificacion"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
+        public string GetUsuarioAutenticacion(string identificacion, string contrasena)
+        {
+            //Limpieza del numero de identificación
+            Regex regex = new Regex("[^0-9]");
+            string cleanIdenficacion = regex.Replace(identificacion, "");
+
+            string contrasenaEncriptada = Seguridad.Encriptar(contrasena);
+
+            Usuario usuario =  this.Repositorio.GetAll<Usuario>().Where(u => u.Identificacion == cleanIdenficacion && u.Contrasena == contrasenaEncriptada).FirstOrDefault();
+
+
+            if (usuario != null)
+            {
+                return Seguridad.CrearToken(usuario);
+            }
+            else
+                throw new Exception($"No se puede autenticar el usuario: Identificación : {identificacion}");
+        }
 
         /// <summary>
         /// Crea un usuario 
@@ -56,6 +83,9 @@ namespace Parking.Core.Negocio
         /// <param name="usuario"></param>
         public void CrearUsuario(Usuario usuario) 
         {
+            // Encriptación de la contraseña 
+            usuario.Contrasena = Seguridad.Encriptar(usuario.Contrasena);
+            
             this.Repositorio.Insert(usuario);
 
             this.Repositorio.Commit();

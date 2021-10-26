@@ -14,6 +14,7 @@ using Parking.Core.Negocio;
 
 namespace Parking.Web.Controllers
 {
+    [Authorize]
     public class UsuariosController : ApiController
     {
         
@@ -22,6 +23,30 @@ namespace Parking.Web.Controllers
         public UsuariosController()
         {
             this.modulo = new ModuloUsuarios();
+        }
+
+        /// <summary>
+        /// Obtiene un token de autenticación para un usuario existente 
+        /// </summary>
+        /// <param name="identificacion"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
+        [Route("api/autenticar")]
+        [HttpPost]
+        [AllowAnonymous]
+        public IHttpActionResult PostAutenticacion(dynamic autenticacion)
+        {
+            try
+            {
+                string identificacion = autenticacion["identificacion"];
+                string contrasena = autenticacion["contrasena"];
+
+                return Ok(this.modulo.GetUsuarioAutenticacion(identificacion, contrasena));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }            
         }
 
         /// <summary>
@@ -44,7 +69,7 @@ namespace Parking.Web.Controllers
         [Route("api/usuario/{id}")]
         [ResponseType(typeof(Usuario))]
         public IHttpActionResult GetUsuario(int id)
-        {
+        {            
             Usuario usuario = this.modulo.GetUsuario(id);
 
             if (usuario == null)

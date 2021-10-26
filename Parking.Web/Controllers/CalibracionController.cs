@@ -14,6 +14,7 @@ using Parking.Core.Negocio;
 
 namespace Parking.Web.Controllers
 {
+    [Authorize]
     public class CalibracionsController : ApiController
     {
 
@@ -25,7 +26,7 @@ namespace Parking.Web.Controllers
         }
 
         /// <summary>
-        /// Consulta LISTAS del sistema 
+        /// Consulta listas del sistema 
         /// </summary>
         /// <returns></returns>
         [Route("api/calibracion")]
@@ -97,7 +98,5 @@ namespace Parking.Web.Controllers
             }
             base.Dispose(disposing);
         }
-
-
     }
 }

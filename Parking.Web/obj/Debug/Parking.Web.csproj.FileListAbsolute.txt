@@ -406,3 +406,12 @@ C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\obj\Debug\Parking.Web.csproj.CopyComplete
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\obj\Debug\Parking.Web.dll
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\obj\Debug\Parking.Web.pdb
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\JWT.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Configuration.ConfigurationManager.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.AccessControl.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.Permissions.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.Principal.Windows.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Configuration.ConfigurationManager.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.AccessControl.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.Permissions.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Web\bin\System.Security.Principal.Windows.xml

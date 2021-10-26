@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Parking.Core.Negocio;
 using Parking.Core.Model;
+using Parking.Core.Utilidades;
 
 namespace Parking.Console
 {
@@ -14,7 +15,11 @@ namespace Parking.Console
 
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hola");
+
+            string encryptedKey = Seguridad.Encriptar("Julian");            
+
+
+            //System.Console.WriteLine("Hola");
 
             //Administracion administracion = new Administracion();
 
@@ -26,11 +31,11 @@ namespace Parking.Console
             //    System.Console.WriteLine($"{usuarios.ElementAt(i).Nombres}");
             //}
 
-            Program p = new Program();
+            //Program p = new Program();
 
-            p.CrearUsuario(1,"LA","LO","987654321", "JC@gmail.com", "56789");
+            //p.CrearUsuario(1,"LA","LO","987654321", "JC@gmail.com", "56789");
 
-            System.Console.ReadKey();
+            //System.Console.ReadKey();
         }
 
 

@@ -14,6 +14,7 @@ using Parking.Core.Negocio;
 
 namespace Parking.Web.Controllers
 {
+    [Authorize]
     public class EspacioDelimitadosController : ApiController
     {
 

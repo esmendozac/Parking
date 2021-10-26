@@ -130,3 +130,14 @@ C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\obj\Debug\Parking.Core.csproj.CopyComplete
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\obj\Debug\Parking.Core.dll
 C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\obj\Debug\Parking.Core.pdb
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\JWT.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.AccessControl.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.Permissions.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.AccessControl.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.Permissions.xml
+C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\bin\Debug\System.Security.Principal.Windows.xml
