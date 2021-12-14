@@ -10,8 +10,7 @@ using Parking.Core.Utilidades;
 namespace Parking.Console
 {
     public class Program
-    {
-        
+    {      
 
         static void Main(string[] args)
         {
@@ -42,7 +41,7 @@ namespace Parking.Console
         public void CrearUsuario(int id, string nombres, string apellidos, string identificación, string email, string contrasena)
         {
             Administracion administracion = new Administracion();
-
+            
             Usuario usuario = new Usuario()
             {
                 Nombres = nombres,
