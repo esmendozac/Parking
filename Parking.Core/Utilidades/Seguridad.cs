@@ -57,7 +57,7 @@ namespace Parking.Core.Utilidades
         /// <returns></returns>
         public static string CrearToken(Usuario u)
         {          
-            var payload = new Dictionary<string, object>() { { "IdUsuario", u.IdUsuario }, { "Identificacion", u.Identificacion }, {"FechaVencimiento", DateTime.Now.AddMinutes(5).ToString("dd-MM-yyyy HH:mm:ss") } };
+            var payload = new Dictionary<string, object>() { { "IdUsuario", u.IdUsuario }, { "Identificacion", u.Identificacion }, {"FechaVencimiento", DateTime.Now.AddMinutes(30).ToString("dd-MM-yyyy HH:mm:ss") } };
 
             return JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
         }
