@@ -32,6 +32,27 @@
     <Property Name="FuenteVideo" Type="varchar" MaxLength="200" />
     <Property Name="RutaModelo" Type="varchar(max)" />
   </EntityType>
+  <EntityType Name="Vehiculo">
+    <Key>
+      <PropertyRef Name="Placa" />
+    </Key>
+    <Property Name="Placa" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="100" />
+    <Property Name="Linea" Type="varchar" MaxLength="100" />
+    <Property Name="Modelo" Type="varchar" MaxLength="100" />
+    <Property Name="Clase" Type="varchar" MaxLength="100" />
+    <Property Name="NumeroMotor" Type="varchar" MaxLength="100" />
+    <Property Name="Vin" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="VehiculoTransaccion">
+    <Key>
+      <PropertyRef Name="IdTransaccion" />
+    </Key>
+    <Property Name="IdTransaccion" Type="int" Nullable="false" />
+    <Property Name="Placa" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="TipoTransaccion" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+  </EntityType>
   <Association Name="FK_EspacioDelimitado_Lote">
     <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -46,12 +67,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VehiculoTransaccion_Vehiculo">
+    <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
+    <End Role="VehiculoTransaccion" Type="Self.VehiculoTransaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculo">
+        <PropertyRef Name="Placa" />
+      </Principal>
+      <Dependent Role="VehiculoTransaccion">
+        <PropertyRef Name="Placa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ParkingLiteDBModelStoreContainer">
     <EntitySet Name="EspacioDelimitado" EntityType="Self.EspacioDelimitado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vehiculo" EntityType="Self.Vehiculo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehiculoTransaccion" EntityType="Self.VehiculoTransaccion" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
       <End Role="Lote" EntitySet="Lote" />
       <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculoTransaccion_Vehiculo" Association="Self.FK_VehiculoTransaccion_Vehiculo">
+      <End Role="Vehiculo" EntitySet="Vehiculo" />
+      <End Role="VehiculoTransaccion" EntitySet="VehiculoTransaccion" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

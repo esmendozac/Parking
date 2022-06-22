@@ -55,5 +55,46 @@
       <End Role="Lote" EntitySet="Lotes" />
       <End Role="EspacioDelimitado" EntitySet="EspaciosDelimitados" />
     </AssociationSet>
+    <EntitySet Name="Vehiculos" EntityType="ParkingLiteDBModel.Vehiculo" />
+    <EntitySet Name="VehiculoTransacciones" EntityType="ParkingLiteDBModel.VehiculoTransaccion" />
+    <AssociationSet Name="FK_VehiculoTransaccion_Vehiculo" Association="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo">
+      <End Role="Vehiculo" EntitySet="Vehiculos" />
+      <End Role="VehiculoTransaccion" EntitySet="VehiculoTransacciones" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Vehiculo">
+    <Key>
+      <PropertyRef Name="Placa" />
+    </Key>
+    <Property Name="Placa" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="Marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Linea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Modelo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Clase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroMotor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Vin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VehiculoTransaccions" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo" FromRole="Vehiculo" ToRole="VehiculoTransaccion" />
+  </EntityType>
+  <EntityType Name="VehiculoTransaccion">
+    <Key>
+      <PropertyRef Name="IdTransaccion" />
+    </Key>
+    <Property Name="IdTransaccion" Type="Int32" Nullable="false" />
+    <Property Name="Placa" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="TipoTransaccion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Vehiculo" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo" FromRole="VehiculoTransaccion" ToRole="Vehiculo" />
+  </EntityType>
+  <Association Name="FK_VehiculoTransaccion_Vehiculo">
+    <End Type="ParkingLiteDBModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
+    <End Type="ParkingLiteDBModel.VehiculoTransaccion" Role="VehiculoTransaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculo">
+        <PropertyRef Name="Placa" />
+      </Principal>
+      <Dependent Role="VehiculoTransaccion">
+        <PropertyRef Name="Placa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
