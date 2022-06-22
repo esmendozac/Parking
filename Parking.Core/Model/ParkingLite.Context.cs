@@ -13,10 +13,10 @@ namespace Parking.Core.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ParkingEntities : DbContext
+    public partial class ParkingLiteEntities : DbContext
     {
-        public ParkingEntities()
-            : base("name=ParkingEntities")
+        public ParkingLiteEntities()
+            : base("name=ParkingLiteEntities")
         {
         }
     
@@ -25,11 +25,9 @@ namespace Parking.Core.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Calibracion> Calibracions { get; set; }
-        public virtual DbSet<EspacioDelimitado> EspacioDelimitadoes { get; set; }
+        public virtual DbSet<EspacioDelimitado> EspaciosDelimitados { get; set; }
         public virtual DbSet<Lote> Lotes { get; set; }
-        public virtual DbSet<Rol> Rols { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<UsuarioLote> UsuarioLotes { get; set; }
+        public virtual DbSet<Vehiculo> Vehiculos { get; set; }
+        public virtual DbSet<VehiculoTransaccion> VehiculoTransacciones { get; set; }
     }
 }

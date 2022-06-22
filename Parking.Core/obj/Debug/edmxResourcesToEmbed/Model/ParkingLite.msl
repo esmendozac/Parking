@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ParkingLiteDBModelStoreContainer" CdmEntityContainer="ParkingLiteEntities">
+    <EntitySetMapping Name="EspaciosDelimitados">
+      <EntityTypeMapping TypeName="ParkingLiteDBModel.EspacioDelimitado">
+        <MappingFragment StoreEntitySet="EspacioDelimitado">
+          <ScalarProperty Name="Indice" ColumnName="Indice" />
+          <ScalarProperty Name="IdEspacioDelimitado" ColumnName="IdEspacioDelimitado" />
+          <ScalarProperty Name="Coord1" ColumnName="Coord1" />
+          <ScalarProperty Name="Coord2" ColumnName="Coord2" />
+          <ScalarProperty Name="Coord3" ColumnName="Coord3" />
+          <ScalarProperty Name="Coord4" ColumnName="Coord4" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+          <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lotes">
+      <EntityTypeMapping TypeName="ParkingLiteDBModel.Lote">
+        <MappingFragment StoreEntitySet="Lote">
+          <ScalarProperty Name="RutaModelo" ColumnName="RutaModelo" />
+          <ScalarProperty Name="FuenteVideo" ColumnName="FuenteVideo" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Nit" ColumnName="Nit" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

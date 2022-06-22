@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\R5 3400\source\repos\Parking\Parking\Parking.Core\Model\Parking.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\R5 3400\Documents\Universidad\Proyecto de grado\source\Parking\Parking.Core\Model\ParkingLite.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

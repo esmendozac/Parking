@@ -7,7 +7,6 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using System.Web.Mvc;
-using Parking.Core.Utilidades;
 using Parking.Core.Model;
 
 
@@ -53,30 +52,30 @@ namespace Parking.Web
         {
             System.Diagnostics.Debug.WriteLine("Authenticate Request");
 
-            var token = this.Request.Headers["Authorization"];
+            //var token = this.Request.Headers["Authorization"];
 
-            //Si el usuario tiene un token
-            if (token != null)
-            {
-                System.Diagnostics.Debug.WriteLine(token);
+            ////Si el usuario tiene un token
+            //if (token != null)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(token);
 
-                try
-                {
-                    Usuario usuario = Seguridad.DecodificarToken(token);
-                    UsuarioPrincipal usuarioPrincipal = new UsuarioPrincipal(usuario);
-                    Context.User = usuarioPrincipal;
+            //    try
+            //    {
+            //        Usuario usuario = Seguridad.DecodificarToken(token);
+            //        UsuarioPrincipal usuarioPrincipal = new UsuarioPrincipal(usuario);
+            //        Context.User = usuarioPrincipal;
 
-                    System.Diagnostics.Debug.WriteLine("Usuario autenticado " + usuario.IdUsuario);
-                }
-                catch (JWT.SignatureVerificationException)
-                {
-                    throw new Exception("Authorization invalid token");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Authorization invalid token. " + ex.Message, ex);
-                }
-            }
+            //        System.Diagnostics.Debug.WriteLine("Usuario autenticado " + usuario.IdUsuario);
+            //    }
+            //    catch (JWT.SignatureVerificationException)
+            //    {
+            //        throw new Exception("Authorization invalid token");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception("Authorization invalid token. " + ex.Message, ex);
+            //    }
+            //}
         }
 
         protected void ParkingApplication_Error(object sender, EventArgs e)

@@ -17,18 +17,22 @@ namespace Parking.Core.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lote()
         {
-            this.Calibracions = new HashSet<Calibracion>();
-            this.UsuarioLotes = new HashSet<UsuarioLote>();
+            this.EspacioDelimitadoes = new HashSet<EspacioDelimitado>();
         }
     
         public int IdLote { get; set; }
         public string Nombre { get; set; }
         public string Nit { get; set; }
         public string Email { get; set; }
+        public string Identificador { get; set; }
+        public string Token { get; set; }
+        public string Direccion { get; set; }
+        public Nullable<System.DateTime> Eliminado { get; set; }
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+        public string FuenteVideo { get; set; }
+        public string RutaModelo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Calibracion> Calibracions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuarioLote> UsuarioLotes { get; set; }
+        public virtual ICollection<EspacioDelimitado> EspacioDelimitadoes { get; set; }
     }
 }

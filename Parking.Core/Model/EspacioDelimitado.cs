@@ -22,9 +22,10 @@ namespace Parking.Core.Model
         public Nullable<bool> Habilitado { get; set; }
         public string Tipo { get; set; }
         public Nullable<System.DateTime> Eliminado { get; set; }
-        public Nullable<int> IdCalibracion { get; set; }
+        public Nullable<int> IdLote { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
+        public Nullable<int> Indice { get; set; }
     
-        public virtual Calibracion Calibracion { get; set; }
+        public virtual Lote Lote { get; set; }
     }
 }

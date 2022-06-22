@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParkingLiteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EspacioDelimitado">
+    <Key>
+      <PropertyRef Name="IdEspacioDelimitado" />
+    </Key>
+    <Property Name="IdEspacioDelimitado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Coord1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Coord4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Habilitado" Type="Boolean" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Eliminado" Type="DateTime" Precision="3" />
+    <Property Name="IdLote" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="Identificador" Type="Int32" />
+    <NavigationProperty Name="Lote" Relationship="Self.FK_EspacioDelimitado_Lote" FromRole="EspacioDelimitado" ToRole="Lote" />
+  </EntityType>
+  <EntityType Name="Lote">
+    <Key>
+      <PropertyRef Name="IdLote" />
+    </Key>
+    <Property Name="IdLote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Identificador" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Token" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EspacioDelimitadoes" Relationship="Self.FK_EspacioDelimitado_Lote" FromRole="Lote" ToRole="EspacioDelimitado" />
+  </EntityType>
+  <Association Name="FK_EspacioDelimitado_Lote">
+    <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="EspacioDelimitado" Type="Self.EspacioDelimitado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="EspacioDelimitado">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ParkingLiteDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EspaciosDelimitados" EntityType="Self.EspacioDelimitado" />
+    <EntitySet Name="Lotes" EntityType="Self.Lote" />
+    <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
+      <End Role="Lote" EntitySet="Lotes" />
+      <End Role="EspacioDelimitado" EntitySet="EspaciosDelimitados" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

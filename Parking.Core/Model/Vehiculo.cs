@@ -12,24 +12,23 @@ namespace Parking.Core.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Calibracion
+    public partial class Vehiculo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Calibracion()
+        public Vehiculo()
         {
-            this.EspacioDelimitadoes = new HashSet<EspacioDelimitado>();
+            this.VehiculoTransaccions = new HashSet<VehiculoTransaccion>();
         }
     
-        public int IdCalibracion { get; set; }
-        public Nullable<System.DateTime> FechaCreacion { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public Nullable<int> IdLote { get; set; }
-        public Nullable<bool> Habilitada { get; set; }
-        public Nullable<System.DateTime> Eliminado { get; set; }
+        public string Placa { get; set; }
+        public string Marca { get; set; }
+        public string Linea { get; set; }
+        public string Modelo { get; set; }
+        public string Clase { get; set; }
+        public string NumeroMotor { get; set; }
+        public string Vin { get; set; }
     
-        public virtual Lote Lote { get; set; }
-        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EspacioDelimitado> EspacioDelimitadoes { get; set; }
+        public virtual ICollection<VehiculoTransaccion> VehiculoTransaccions { get; set; }
     }
 }

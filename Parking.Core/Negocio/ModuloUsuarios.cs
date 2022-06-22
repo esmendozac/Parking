@@ -67,8 +67,7 @@ namespace Parking.Core.Negocio
             string contrasenaEncriptada = Seguridad.Encriptar(contrasena);
 
             Usuario usuario =  this.Repositorio.GetAll<Usuario>().Where(u => u.Identificacion == cleanIdenficacion && u.Contrasena == contrasenaEncriptada).FirstOrDefault();
-
-
+            
             if (usuario != null)
             {
                 return Seguridad.CrearToken(usuario);

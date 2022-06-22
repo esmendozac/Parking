@@ -11,7 +11,7 @@ namespace Parking.Core.Negocio
     public class Maestro : IDisposable
     {
 
-        ParkingRepositorio repositorio;
+        ParkingRepositorioLite repositorio;
         private bool dispose = false;
 
         public Maestro()
@@ -19,18 +19,18 @@ namespace Parking.Core.Negocio
             this.repositorio = null;
         }
 
-        public Maestro(ParkingRepositorio repositorio)
+        public Maestro(ParkingRepositorioLite repositorio)
         {
             this.repositorio = repositorio;
         }
 
-        internal ParkingRepositorio Repositorio
+        internal ParkingRepositorioLite Repositorio
         {
             get
             {
                 if (this.repositorio == null)
                 {
-                    this.repositorio = new ParkingRepositorio();
+                    this.repositorio = new ParkingRepositorioLite();
                     dispose = true;
                 }
 

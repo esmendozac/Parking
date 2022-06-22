@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParkingLiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EspacioDelimitado">
+    <Key>
+      <PropertyRef Name="IdEspacioDelimitado" />
+    </Key>
+    <Property Name="IdEspacioDelimitado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Coord1" Type="varchar" MaxLength="50" />
+    <Property Name="Coord2" Type="varchar" MaxLength="50" />
+    <Property Name="Coord3" Type="varchar" MaxLength="50" />
+    <Property Name="Coord4" Type="varchar" MaxLength="50" />
+    <Property Name="Habilitado" Type="bit" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Eliminado" Type="datetime" />
+    <Property Name="IdLote" Type="int" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="Identificador" Type="int" />
+  </EntityType>
+  <EntityType Name="Lote">
+    <Key>
+      <PropertyRef Name="IdLote" />
+    </Key>
+    <Property Name="IdLote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Nit" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="200" />
+    <Property Name="Identificador" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Token" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_EspacioDelimitado_Lote">
+    <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="EspacioDelimitado" Type="Self.EspacioDelimitado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="EspacioDelimitado">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ParkingLiteDBModelStoreContainer">
+    <EntitySet Name="EspacioDelimitado" EntityType="Self.EspacioDelimitado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
+      <End Role="Lote" EntitySet="Lote" />
+      <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Parking.Core.Negocio;
 using Parking.Core.Model;
-using Parking.Core.Utilidades;
+
 
 namespace Parking.Console
 {
@@ -15,7 +15,7 @@ namespace Parking.Console
         static void Main(string[] args)
         {
 
-            string encryptedKey = Seguridad.Encriptar("Julian");            
+            //string encryptedKey = Seguridad.Encriptar("Julian");            
 
 
             //System.Console.WriteLine("Hola");
@@ -38,21 +38,21 @@ namespace Parking.Console
         }
 
 
-        public void CrearUsuario(int id, string nombres, string apellidos, string identificación, string email, string contrasena)
-        {
-            Administracion administracion = new Administracion();
+        //public void CrearUsuario(int id, string nombres, string apellidos, string identificación, string email, string contrasena)
+        //{
+        //    Administracion administracion = new Administracion();
             
-            Usuario usuario = new Usuario()
-            {
-                Nombres = nombres,
-                Apellidos = apellidos,
-                Identificacion = identificación,
-                Email = email,
-                Contrasena = contrasena
+        //    Usuario usuario = new Usuario()
+        //    {
+        //        Nombres = nombres,
+        //        Apellidos = apellidos,
+        //        Identificacion = identificación,
+        //        Email = email,
+        //        Contrasena = contrasena
              
-            };
+        //    };
 
-            administracion.SaveUsuario(usuario);
-        }
+        //    administracion.SaveUsuario(usuario);
+        //}
     }
 }

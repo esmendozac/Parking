@@ -12,18 +12,13 @@ namespace Parking.Core.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Rol
+    public partial class VehiculoTransaccion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rol()
-        {
-            this.Usuarios = new HashSet<Usuario>();
-        }
+        public int IdTransaccion { get; set; }
+        public string Placa { get; set; }
+        public string TipoTransaccion { get; set; }
+        public System.DateTime Fecha { get; set; }
     
-        public int IdRol { get; set; }
-        public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual Vehiculo Vehiculo { get; set; }
     }
 }
