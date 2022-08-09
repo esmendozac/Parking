@@ -18,7 +18,10 @@ namespace Parking.Core.Model
         public string Placa { get; set; }
         public string TipoTransaccion { get; set; }
         public System.DateTime Fecha { get; set; }
+        public int IdLote { get; set; }
+        public Nullable<System.DateTime> Eliminado { get; set; }
     
         public virtual Vehiculo Vehiculo { get; set; }
+        public virtual Lote Lote { get; set; }
     }
 }

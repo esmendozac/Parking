@@ -27,6 +27,8 @@ namespace Parking.Core.Model
         public string Clase { get; set; }
         public string NumeroMotor { get; set; }
         public string Vin { get; set; }
+        public Nullable<System.DateTime> FechaActualizacion { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehiculoTransaccion> VehiculoTransaccions { get; set; }

@@ -48,15 +48,19 @@
           <Property Name="Clase" Type="varchar" MaxLength="100" />
           <Property Name="NumeroMotor" Type="varchar" MaxLength="100" />
           <Property Name="Vin" Type="varchar" MaxLength="100" />
+          <Property Name="FechaActualizacion" Type="datetime" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="VehiculoTransaccion">
           <Key>
             <PropertyRef Name="IdTransaccion" />
           </Key>
-          <Property Name="IdTransaccion" Type="int" Nullable="false" />
+          <Property Name="IdTransaccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLote" Type="int" Nullable="false" />
           <Property Name="Placa" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="TipoTransaccion" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Eliminado" Type="datetime" />
         </EntityType>
         <Association Name="FK_EspacioDelimitado_Lote">
           <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
@@ -68,6 +72,20 @@
               <PropertyRef Name="IdLote" />
             </Principal>
             <Dependent Role="EspacioDelimitado">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehiculoTransaccion_Lote">
+          <End Role="Lote" Type="Self.Lote" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehiculoTransaccion" Type="Self.VehiculoTransaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lote">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="VehiculoTransaccion">
               <PropertyRef Name="IdLote" />
             </Dependent>
           </ReferentialConstraint>
@@ -92,6 +110,10 @@
           <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
             <End Role="Lote" EntitySet="Lote" />
             <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehiculoTransaccion_Lote" Association="Self.FK_VehiculoTransaccion_Lote">
+            <End Role="Lote" EntitySet="Lote" />
+            <End Role="VehiculoTransaccion" EntitySet="VehiculoTransaccion" />
           </AssociationSet>
           <AssociationSet Name="FK_VehiculoTransaccion_Vehiculo" Association="Self.FK_VehiculoTransaccion_Vehiculo">
             <End Role="Vehiculo" EntitySet="Vehiculo" />
@@ -135,6 +157,7 @@
           <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
           <Property Name="FuenteVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="RutaModelo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VehiculoTransaccions" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" FromRole="Lote" ToRole="VehiculoTransaccion" />
         </EntityType>
         <Association Name="FK_EspacioDelimitado_Lote">
           <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
@@ -163,6 +186,10 @@
             <End Role="Vehiculo" EntitySet="Vehiculos" />
             <End Role="VehiculoTransaccion" EntitySet="VehiculoTransacciones" />
           </AssociationSet>
+          <AssociationSet Name="FK_VehiculoTransaccion_Lote" Association="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote">
+            <End Role="Lote" EntitySet="Lotes" />
+            <End Role="VehiculoTransaccion" EntitySet="VehiculoTransacciones" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Vehiculo">
           <Key>
@@ -176,6 +203,8 @@
           <Property Name="NumeroMotor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Vin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="VehiculoTransaccions" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo" FromRole="Vehiculo" ToRole="VehiculoTransaccion" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="VehiculoTransaccion">
           <Key>
@@ -186,6 +215,9 @@
           <Property Name="TipoTransaccion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Vehiculo" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo" FromRole="VehiculoTransaccion" ToRole="Vehiculo" />
+          <Property Name="IdLote" Type="Int32" Nullable="false" />
+          <Property Name="Eliminado" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Lote" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" FromRole="VehiculoTransaccion" ToRole="Lote" />
         </EntityType>
         <Association Name="FK_VehiculoTransaccion_Vehiculo">
           <End Type="ParkingLiteDBModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
@@ -196,6 +228,20 @@
             </Principal>
             <Dependent Role="VehiculoTransaccion">
               <PropertyRef Name="Placa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehiculoTransaccion_Lote">
+          <End Type="ParkingLiteDBModel.Lote" Role="Lote" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ParkingLiteDBModel.VehiculoTransaccion" Role="VehiculoTransaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lote">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="VehiculoTransaccion">
+              <PropertyRef Name="IdLote" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -242,6 +288,8 @@
           <EntitySetMapping Name="Vehiculos">
             <EntityTypeMapping TypeName="ParkingLiteDBModel.Vehiculo">
               <MappingFragment StoreEntitySet="Vehiculo">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Vin" ColumnName="Vin" />
                 <ScalarProperty Name="NumeroMotor" ColumnName="NumeroMotor" />
                 <ScalarProperty Name="Clase" ColumnName="Clase" />
@@ -255,6 +303,8 @@
           <EntitySetMapping Name="VehiculoTransacciones">
             <EntityTypeMapping TypeName="ParkingLiteDBModel.VehiculoTransaccion">
               <MappingFragment StoreEntitySet="VehiculoTransaccion">
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="TipoTransaccion" ColumnName="TipoTransaccion" />
                 <ScalarProperty Name="Placa" ColumnName="Placa" />

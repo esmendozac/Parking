@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="ParkingLiteDBModel.Vehiculo" Width="1.5" PointX="5.375" PointY="1" />
         <EntityTypeShape EntityType="ParkingLiteDBModel.VehiculoTransaccion" Width="1.5" PointX="7.625" PointY="1.25" />
         <AssociationConnector Association="ParkingLiteDBModel.FK_VehiculoTransaccion_Vehiculo" />
+        <AssociationConnector Association="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
