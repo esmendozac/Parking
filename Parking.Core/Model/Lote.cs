@@ -19,6 +19,7 @@ namespace Parking.Core.Model
         {
             this.EspacioDelimitadoes = new HashSet<EspacioDelimitado>();
             this.VehiculoTransaccions = new HashSet<VehiculoTransaccion>();
+            this.Tarifas = new HashSet<Tarifa>();
         }
     
         public int IdLote { get; set; }
@@ -37,5 +38,7 @@ namespace Parking.Core.Model
         public virtual ICollection<EspacioDelimitado> EspacioDelimitadoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehiculoTransaccion> VehiculoTransaccions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tarifa> Tarifas { get; set; }
     }
 }

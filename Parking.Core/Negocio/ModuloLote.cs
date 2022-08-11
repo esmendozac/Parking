@@ -245,6 +245,31 @@ namespace Parking.Core.Negocio
             }
         }
 
+        public bool ActualizarTarifa(Dto.Tarifa tarifa)
+        {
+            try
+            {
+                Model.Tarifa nuevaTarifa = new Model.Tarifa()
+                {
+                    IdLote = tarifa.IdLote,
+                    PrecioFijo = (decimal)tarifa.PrecioFijo,
+                    PrecioFraccion = (decimal)tarifa.PrecioFraccion,
+                    FraccionMinimaPrecioFijo = (decimal)tarifa.FraccionMinimaPrecioFijo,
+                    FechaCreacion = DateTime.Now,
+                    Activo = true
+                };
+
+                this.Repositorio.Insert<Model.Tarifa>(nuevaTarifa);
+
+                this.Repositorio.Commit();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void EliminarLote(int Id)
         {
             Model.Lote lote = this.Repositorio.GetAll<Model.Lote>().Where(l => l.IdLote == Id).FirstOrDefault();

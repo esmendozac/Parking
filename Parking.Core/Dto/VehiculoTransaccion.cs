@@ -16,9 +16,7 @@ namespace Parking.Core.Dto
         public string Clase { get; set; }
         public string NumeroMotor { get; set; }
         public string Vin { get; set; }
-        public string TipoTransaccion { get; set; }
+        //public string TipoTransaccion { get; set; }
         public DateTime Fecha { get; set; }
-
-
     }
 }

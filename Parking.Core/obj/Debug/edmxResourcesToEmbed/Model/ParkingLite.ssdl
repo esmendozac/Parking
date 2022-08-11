@@ -32,6 +32,18 @@
     <Property Name="FuenteVideo" Type="varchar" MaxLength="200" />
     <Property Name="RutaModelo" Type="varchar(max)" />
   </EntityType>
+  <EntityType Name="Tarifa">
+    <Key>
+      <PropertyRef Name="IdTarifa" />
+    </Key>
+    <Property Name="IdTarifa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdLote" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="PrecioFraccion" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PrecioFijo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="FraccionMinimaPrecioFijo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
   <EntityType Name="Vehiculo">
     <Key>
       <PropertyRef Name="Placa" />
@@ -56,6 +68,7 @@
     <Property Name="TipoTransaccion" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Eliminado" Type="datetime" />
+    <Property Name="Guid" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_EspacioDelimitado_Lote">
     <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
@@ -67,6 +80,20 @@
         <PropertyRef Name="IdLote" />
       </Principal>
       <Dependent Role="EspacioDelimitado">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarifa_Lote">
+    <End Role="Lote" Type="Self.Lote" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="Tarifa">
         <PropertyRef Name="IdLote" />
       </Dependent>
     </ReferentialConstraint>
@@ -100,11 +127,16 @@
   <EntityContainer Name="ParkingLiteDBModelStoreContainer">
     <EntitySet Name="EspacioDelimitado" EntityType="Self.EspacioDelimitado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tarifa" EntityType="Self.Tarifa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vehiculo" EntityType="Self.Vehiculo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VehiculoTransaccion" EntityType="Self.VehiculoTransaccion" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
       <End Role="Lote" EntitySet="Lote" />
       <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarifa_Lote" Association="Self.FK_Tarifa_Lote">
+      <End Role="Lote" EntitySet="Lote" />
+      <End Role="Tarifa" EntitySet="Tarifa" />
     </AssociationSet>
     <AssociationSet Name="FK_VehiculoTransaccion_Lote" Association="Self.FK_VehiculoTransaccion_Lote">
       <End Role="Lote" EntitySet="Lote" />

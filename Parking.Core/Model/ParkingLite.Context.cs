@@ -29,5 +29,6 @@ namespace Parking.Core.Model
         public virtual DbSet<Lote> Lotes { get; set; }
         public virtual DbSet<Vehiculo> Vehiculos { get; set; }
         public virtual DbSet<VehiculoTransaccion> VehiculoTransacciones { get; set; }
+        public virtual DbSet<Tarifa> Tarifas { get; set; }
     }
 }

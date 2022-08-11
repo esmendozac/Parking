@@ -53,12 +53,26 @@
     <EntitySetMapping Name="VehiculoTransacciones">
       <EntityTypeMapping TypeName="ParkingLiteDBModel.VehiculoTransaccion">
         <MappingFragment StoreEntitySet="VehiculoTransaccion">
+          <ScalarProperty Name="Guid" ColumnName="Guid" />
           <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
           <ScalarProperty Name="IdLote" ColumnName="IdLote" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
           <ScalarProperty Name="TipoTransaccion" ColumnName="TipoTransaccion" />
           <ScalarProperty Name="Placa" ColumnName="Placa" />
           <ScalarProperty Name="IdTransaccion" ColumnName="IdTransaccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tarifas">
+      <EntityTypeMapping TypeName="ParkingLiteDBModel.Tarifa">
+        <MappingFragment StoreEntitySet="Tarifa">
+          <ScalarProperty Name="FraccionMinimaPrecioFijo" ColumnName="FraccionMinimaPrecioFijo" />
+          <ScalarProperty Name="PrecioFijo" ColumnName="PrecioFijo" />
+          <ScalarProperty Name="PrecioFraccion" ColumnName="PrecioFraccion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+          <ScalarProperty Name="IdTarifa" ColumnName="IdTarifa" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

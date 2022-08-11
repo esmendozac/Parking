@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="Dto\EspacioDelimitado.cs" />
     <Compile Include="Dto\Lote.cs" />
+    <Compile Include="Dto\Tarifa.cs" />
     <Compile Include="Dto\VehiculoTransaccion.cs" />
     <Compile Include="Model\EspacioDelimitado.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>
@@ -153,6 +154,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ParkingLite.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ResumenTransaccion.cs" />
+    <Compile Include="Model\Tarifa.cs">
+      <DependentUpon>ParkingLite.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Vehiculo.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>

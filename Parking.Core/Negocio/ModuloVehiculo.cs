@@ -45,7 +45,7 @@ namespace Parking.Core.Negocio
         /// Registra una transacción y un vehiculo especifico asociado a la misma
         /// </summary>
         /// <param name="vtDto"></param>
-        public int RegistrarTransaccion(Dto.VehiculoTransaccion vtDto)
+        public Model.ResumenTransaccion RegistrarTransaccion(Dto.VehiculoTransaccion vtDto)
         {
             this.Repositorio.LazyLoading = false;
 
@@ -85,7 +85,21 @@ namespace Parking.Core.Negocio
                 veh.FechaActualizacion = DateTime.Now;
             }
 
-            
+            string tipoTransacccion;
+
+            //Si existe una entrada no cerrada para el vehiculo, la transacción será una salida
+            Model.VehiculoTransaccion ultimaTransaccion = this.Repositorio.GetAll<Model.VehiculoTransaccion>()
+                .Where(_vt => _vt.Placa == veh.Placa).OrderByDescending(_vt => _vt.Fecha).FirstOrDefault();
+
+            if (ultimaTransaccion != null)
+            {
+                if (ultimaTransaccion.TipoTransaccion == "Salida")
+                    tipoTransacccion = "Entrada";
+                else
+                    tipoTransacccion = "Salida";
+            }
+            else
+                tipoTransacccion = "Entrada";
 
             //Crea la transación 
             Model.VehiculoTransaccion vt = new Model.VehiculoTransaccion()
@@ -94,15 +108,62 @@ namespace Parking.Core.Negocio
                 Eliminado = null,
                 Fecha = DateTime.Now,
                 IdLote = vtDto.IdLote,
-                TipoTransaccion = vtDto.TipoTransaccion                
+                TipoTransaccion = tipoTransacccion,
+                Guid = tipoTransacccion == "Entrada" ? Convert.ToString(Guid.NewGuid()) : ultimaTransaccion.Guid
             };
 
             veh.VehiculoTransaccions.Add(vt);
 
-            //this.Repositorio.Insert<Model.VehiculoTransaccion>(vt);
             this.Repositorio.Commit();
 
-            return vt.IdTransaccion;
+
+            //Consulta ultima tarifa creada
+            Model.Tarifa tarifa = this.Repositorio.GetAll<Model.Tarifa>().Where(_t => _t.IdLote == vtDto.IdLote).OrderByDescending(_t => _t.FechaCreacion).FirstOrDefault();
+
+            Model.ResumenTransaccion resumen = new Model.ResumenTransaccion();
+
+            if (tarifa != null)
+            {              
+
+                if (tipoTransacccion == "Entrada")
+                {
+
+                    resumen = new Model.ResumenTransaccion()
+                    {
+                        Placa = veh.Placa,
+                        Guid = vt.Guid,
+                        FechaEntrada = vt.Fecha,
+                        FechaSalida = null,
+                        Tiempo = null,
+                        TarifaFija = tarifa.PrecioFijo,
+                        TarifaFraccion = tarifa.PrecioFraccion,
+                        Valor = null
+                    };
+                }
+                else if (tipoTransacccion == "Salida")
+                {
+
+                    decimal minutos = (decimal)(vt.Fecha - ultimaTransaccion.Fecha).TotalMinutes;
+
+                    resumen = new Model.ResumenTransaccion()
+                    {
+                        Placa = veh.Placa,
+                        Guid = vt.Guid,
+                        FechaEntrada = ultimaTransaccion.Fecha,
+                        FechaSalida = vt.Fecha,
+                        Tiempo = minutos,
+                        TarifaFija = tarifa.PrecioFijo,
+                        TarifaFraccion = tarifa.PrecioFraccion,
+                        Valor = minutos < tarifa.FraccionMinimaPrecioFijo ? minutos * tarifa.PrecioFraccion : tarifa.PrecioFijo
+                    };
+                }
+
+            }
+            else             
+                throw new Exception($"No existe tarifa asociada al lote {vtDto.IdLote}");            
+
+            
+            return resumen;
         }
     }
 }

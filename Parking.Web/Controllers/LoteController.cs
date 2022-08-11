@@ -110,6 +110,28 @@ namespace Parking.Web.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("api/ActualizarTarifa")]
+        public IHttpActionResult ActualizarTarifa(Tarifa tarifa)
+        {
+            try
+            {
+                bool tarifaActualizada = this.modulo.ActualizarTarifa(tarifa);
+
+                if (tarifaActualizada)
+                    return StatusCode(HttpStatusCode.NoContent);
+                else
+                    return StatusCode(HttpStatusCode.BadRequest);
+            }
+            catch
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

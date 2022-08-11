@@ -29,9 +29,9 @@ namespace Parking.Web.Controllers
         {
             try
             {
-                int idTransaccion = this.modulo.RegistrarTransaccion(vehiculoTransaccion);
+                Parking.Core.Model.ResumenTransaccion resumen = this.modulo.RegistrarTransaccion(vehiculoTransaccion);
 
-                return Created($"Transaccion", idTransaccion);
+                return Created($"Transaccion", resumen);
             }
             catch(Exception ex)
             {

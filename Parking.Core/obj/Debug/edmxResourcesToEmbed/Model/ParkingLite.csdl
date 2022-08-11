@@ -34,6 +34,7 @@
     <Property Name="FuenteVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="RutaModelo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="VehiculoTransaccions" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" FromRole="Lote" ToRole="VehiculoTransaccion" />
+    <NavigationProperty Name="Tarifas" Relationship="ParkingLiteDBModel.FK_Tarifa_Lote" FromRole="Lote" ToRole="Tarifa" />
   </EntityType>
   <Association Name="FK_EspacioDelimitado_Lote">
     <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
@@ -66,6 +67,11 @@
       <End Role="Lote" EntitySet="Lotes" />
       <End Role="VehiculoTransaccion" EntitySet="VehiculoTransacciones" />
     </AssociationSet>
+    <EntitySet Name="Tarifas" EntityType="ParkingLiteDBModel.Tarifa" />
+    <AssociationSet Name="FK_Tarifa_Lote" Association="ParkingLiteDBModel.FK_Tarifa_Lote">
+      <End Role="Lote" EntitySet="Lotes" />
+      <End Role="Tarifa" EntitySet="Tarifas" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Vehiculo">
     <Key>
@@ -94,6 +100,7 @@
     <Property Name="IdLote" Type="Int32" Nullable="false" />
     <Property Name="Eliminado" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Lote" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" FromRole="VehiculoTransaccion" ToRole="Lote" />
+    <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_VehiculoTransaccion_Vehiculo">
     <End Type="ParkingLiteDBModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
@@ -117,6 +124,33 @@
         <PropertyRef Name="IdLote" />
       </Principal>
       <Dependent Role="VehiculoTransaccion">
+        <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tarifa">
+    <Key>
+      <PropertyRef Name="IdTarifa" />
+    </Key>
+    <Property Name="IdTarifa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdLote" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PrecioFraccion" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PrecioFijo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="FraccionMinimaPrecioFijo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="Lote" Relationship="ParkingLiteDBModel.FK_Tarifa_Lote" FromRole="Tarifa" ToRole="Lote" />
+  </EntityType>
+  <Association Name="FK_Tarifa_Lote">
+    <End Type="ParkingLiteDBModel.Lote" Role="Lote" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingLiteDBModel.Tarifa" Role="Tarifa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lote">
+        <PropertyRef Name="IdLote" />
+      </Principal>
+      <Dependent Role="Tarifa">
         <PropertyRef Name="IdLote" />
       </Dependent>
     </ReferentialConstraint>
