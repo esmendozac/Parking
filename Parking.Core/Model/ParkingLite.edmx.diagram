@@ -14,6 +14,8 @@
         <AssociationConnector Association="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" />
         <EntityTypeShape EntityType="ParkingLiteDBModel.Tarifa" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="ParkingLiteDBModel.FK_Tarifa_Lote" />
+        <EntityTypeShape EntityType="ParkingLiteDBModel.Monitoreo" Width="1.5" PointX="5" PointY="5.375" />
+        <AssociationConnector Association="ParkingLiteDBModel.FK_Monitoreo_EspacioDelimitado" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

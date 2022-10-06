@@ -32,6 +32,15 @@
     <Property Name="FuenteVideo" Type="varchar" MaxLength="200" />
     <Property Name="RutaModelo" Type="varchar(max)" />
   </EntityType>
+  <EntityType Name="Monitoreo">
+    <Key>
+      <PropertyRef Name="IdMonitoreo" />
+    </Key>
+    <Property Name="IdMonitoreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEspacioDelimitado" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Tarifa">
     <Key>
       <PropertyRef Name="IdTarifa" />
@@ -69,6 +78,7 @@
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Eliminado" Type="datetime" />
     <Property Name="Guid" Type="varchar(max)" Nullable="false" />
+    <Property Name="Valor" Type="int" />
   </EntityType>
   <Association Name="FK_EspacioDelimitado_Lote">
     <End Role="Lote" Type="Self.Lote" Multiplicity="0..1">
@@ -81,6 +91,20 @@
       </Principal>
       <Dependent Role="EspacioDelimitado">
         <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Monitoreo_EspacioDelimitado">
+    <End Role="EspacioDelimitado" Type="Self.EspacioDelimitado" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Monitoreo" Type="Self.Monitoreo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EspacioDelimitado">
+        <PropertyRef Name="IdEspacioDelimitado" />
+      </Principal>
+      <Dependent Role="Monitoreo">
+        <PropertyRef Name="IdEspacioDelimitado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -127,12 +151,17 @@
   <EntityContainer Name="ParkingLiteDBModelStoreContainer">
     <EntitySet Name="EspacioDelimitado" EntityType="Self.EspacioDelimitado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Monitoreo" EntityType="Self.Monitoreo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tarifa" EntityType="Self.Tarifa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vehiculo" EntityType="Self.Vehiculo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VehiculoTransaccion" EntityType="Self.VehiculoTransaccion" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_EspacioDelimitado_Lote" Association="Self.FK_EspacioDelimitado_Lote">
       <End Role="Lote" EntitySet="Lote" />
       <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Monitoreo_EspacioDelimitado" Association="Self.FK_Monitoreo_EspacioDelimitado">
+      <End Role="EspacioDelimitado" EntitySet="EspacioDelimitado" />
+      <End Role="Monitoreo" EntitySet="Monitoreo" />
     </AssociationSet>
     <AssociationSet Name="FK_Tarifa_Lote" Association="Self.FK_Tarifa_Lote">
       <End Role="Lote" EntitySet="Lote" />

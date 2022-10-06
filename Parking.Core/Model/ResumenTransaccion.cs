@@ -11,11 +11,15 @@ namespace Parking.Core.Model
 
         public string Guid { get; set; }
         public string Placa { get; set; }
-        public DateTime FechaEntrada { get; set; }
-        public DateTime? FechaSalida { get; set; }
+        public string FechaEntrada { get; set; }
+        public string FechaSalida { get; set; }
         public decimal? Tiempo { get; set; }
         public decimal TarifaFraccion { get; set; }
         public decimal TarifaFija { get; set; }
         public decimal? Valor { get; set; }
+        public decimal FraccionMinimaPrecioFijo { get; set; }
+        public string NombreLote { get; set; }
+        public string DireccionLote { get; set; }
+
     }
 }

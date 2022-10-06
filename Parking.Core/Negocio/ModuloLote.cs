@@ -239,7 +239,7 @@ namespace Parking.Core.Negocio
 
                 }
                 else
-                    throw new Exception($"No se encontró el lote con Id {lote.IdLote}"); 
+                    throw new Exception($"No se encontró el lote con Id {lote.IdLote}");
 
 
             }
@@ -270,6 +270,7 @@ namespace Parking.Core.Negocio
                 throw new Exception(ex.Message);
             }
         }
+
         public void EliminarLote(int Id)
         {
             Model.Lote lote = this.Repositorio.GetAll<Model.Lote>().Where(l => l.IdLote == Id).FirstOrDefault();
@@ -281,6 +282,33 @@ namespace Parking.Core.Negocio
             }
             else
                 throw new Exception($"No existe un lote con Id: {Id}");
+
+        }
+
+        public void GuardarMonitoreos(List<Dto.Monitoreo> monitoreos)
+        {
+
+            foreach (Dto.Monitoreo m in monitoreos)
+            {
+
+                if (m.IdEspacioDelimitado != 0)
+                {
+
+                    if (!m.Fecha.HasValue)
+                        m.Fecha = DateTime.Now;
+
+                    Model.Monitoreo monitoreo = new Model.Monitoreo()
+                    {
+                        Estado = m.Estado,
+                        Fecha = m.Fecha.Value,
+                        IdEspacioDelimitado = m.IdEspacioDelimitado
+                    };
+
+                    this.Repositorio.Insert<Model.Monitoreo>(monitoreo);
+                }
+            } 
+
+            this.Repositorio.Commit();
 
         }
 

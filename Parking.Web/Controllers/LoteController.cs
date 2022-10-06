@@ -131,6 +131,20 @@ namespace Parking.Web.Controllers
         }
 
 
+        [HttpPost]
+        [Route("api/GuardarMonitoreos")]
+        public IHttpActionResult GuardarMonitoreos(List<Monitoreo> monitoreos)
+        {
+            try
+            {
+                this.modulo.GuardarMonitoreos(monitoreos);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {

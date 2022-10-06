@@ -30,5 +30,6 @@ namespace Parking.Core.Model
         public virtual DbSet<Vehiculo> Vehiculos { get; set; }
         public virtual DbSet<VehiculoTransaccion> VehiculoTransacciones { get; set; }
         public virtual DbSet<Tarifa> Tarifas { get; set; }
+        public virtual DbSet<Monitoreo> Monitoreos { get; set; }
     }
 }

@@ -12,18 +12,13 @@ namespace Parking.Core.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class VehiculoTransaccion
+    public partial class Monitoreo
     {
-        public int IdTransaccion { get; set; }
-        public string Placa { get; set; }
-        public string TipoTransaccion { get; set; }
+        public int IdMonitoreo { get; set; }
+        public int IdEspacioDelimitado { get; set; }
+        public bool Estado { get; set; }
         public System.DateTime Fecha { get; set; }
-        public int IdLote { get; set; }
-        public Nullable<System.DateTime> Eliminado { get; set; }
-        public string Guid { get; set; }
-        public Nullable<int> Valor { get; set; }
     
-        public virtual Vehiculo Vehiculo { get; set; }
-        public virtual Lote Lote { get; set; }
+        public virtual EspacioDelimitado EspacioDelimitado { get; set; }
     }
 }

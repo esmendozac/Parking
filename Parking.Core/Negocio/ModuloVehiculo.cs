@@ -51,6 +51,8 @@ namespace Parking.Core.Negocio
 
             Model.Vehiculo veh = this.Repositorio.GetAll<Vehiculo>().Where(v => v.Placa == vtDto.Placa).FirstOrDefault();
 
+            Model.Lote lot = this.Repositorio.GetAll<Model.Lote>().Where(l => l.IdLote  == vtDto.IdLote).FirstOrDefault();
+
             //Verifica si la placa existe:
             if (veh == null)
             {
@@ -132,12 +134,15 @@ namespace Parking.Core.Negocio
                     {
                         Placa = veh.Placa,
                         Guid = vt.Guid,
-                        FechaEntrada = vt.Fecha,
+                        FechaEntrada = vt.Fecha.ToString("yyyy-MM-dd HH:mm:ss"),
                         FechaSalida = null,
                         Tiempo = null,
                         TarifaFija = tarifa.PrecioFijo,
                         TarifaFraccion = tarifa.PrecioFraccion,
-                        Valor = null
+                        Valor = null,
+                        FraccionMinimaPrecioFijo = tarifa.FraccionMinimaPrecioFijo,
+                        DireccionLote = lot.Direccion,
+                        NombreLote = lot.Nombre
                     };
                 }
                 else if (tipoTransacccion == "Salida")
@@ -149,13 +154,32 @@ namespace Parking.Core.Negocio
                     {
                         Placa = veh.Placa,
                         Guid = vt.Guid,
-                        FechaEntrada = ultimaTransaccion.Fecha,
-                        FechaSalida = vt.Fecha,
-                        Tiempo = minutos,
+                        FechaEntrada = ultimaTransaccion.Fecha.ToString("yyyy-MM-dd HH:mm:ss"),
+                        FechaSalida = vt.Fecha.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Tiempo = Math.Truncate(Math.Ceiling(minutos)),
                         TarifaFija = tarifa.PrecioFijo,
                         TarifaFraccion = tarifa.PrecioFraccion,
-                        Valor = minutos < tarifa.FraccionMinimaPrecioFijo ? minutos * tarifa.PrecioFraccion : tarifa.PrecioFijo
+                        Valor = minutos < tarifa.FraccionMinimaPrecioFijo ? Math.Truncate(Math.Ceiling(minutos * tarifa.PrecioFraccion)) : tarifa.PrecioFijo,
+                        FraccionMinimaPrecioFijo = tarifa.FraccionMinimaPrecioFijo,
+                        DireccionLote = lot.Direccion,
+                        NombreLote = lot.Nombre
                     };
+
+                    
+                    //Aproximación a la cincuentena
+                    int valor = Convert.ToInt32(resumen.Valor);
+
+                    for (int i = 0; i <= 50; i++)
+                    {
+                        if (valor % 50 == 0)
+                            break;
+
+                        valor++;
+                    }
+
+                    resumen.Valor = valor;
+                    vt.Valor = valor;
+                    this.Repositorio.Commit();
                 }
 
             }

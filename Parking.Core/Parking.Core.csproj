@@ -131,7 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\EspacioDelimitado.cs" />
+    <Compile Include="Dto\EstadisticaTransaccion.cs" />
     <Compile Include="Dto\Lote.cs" />
+    <Compile Include="Dto\Monitoreo.cs" />
     <Compile Include="Dto\Tarifa.cs" />
     <Compile Include="Dto\VehiculoTransaccion.cs" />
     <Compile Include="Model\EspacioDelimitado.cs">
@@ -140,6 +142,10 @@
     <Compile Include="Model\Lote.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Monitoreo.cs">
+      <DependentUpon>ParkingLite.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Ocupacion.cs" />
     <Compile Include="Model\ParkingLite.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,12 +165,14 @@
     <Compile Include="Model\Tarifa.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Transacciones.cs" />
     <Compile Include="Model\Vehiculo.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\VehiculoTransaccion.cs">
       <DependentUpon>ParkingLite.tt</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\ModuloEstadisticas.cs" />
     <Compile Include="Negocio\Maestro.cs" />
     <Compile Include="Negocio\ModuloLote.cs" />
     <Compile Include="Negocio\ModuloVehiculo.cs" />
@@ -186,6 +194,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DB\Queries\" />
     <Folder Include="Utilidades\" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
     <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Lote" Relationship="Self.FK_EspacioDelimitado_Lote" FromRole="EspacioDelimitado" ToRole="Lote" />
     <Property Name="Indice" Type="Int32" />
+    <NavigationProperty Name="Monitoreos" Relationship="ParkingLiteDBModel.FK_Monitoreo_EspacioDelimitado" FromRole="EspacioDelimitado" ToRole="Monitoreo" />
   </EntityType>
   <EntityType Name="Lote">
     <Key>
@@ -72,6 +73,11 @@
       <End Role="Lote" EntitySet="Lotes" />
       <End Role="Tarifa" EntitySet="Tarifas" />
     </AssociationSet>
+    <EntitySet Name="Monitoreos" EntityType="ParkingLiteDBModel.Monitoreo" />
+    <AssociationSet Name="FK_Monitoreo_EspacioDelimitado" Association="ParkingLiteDBModel.FK_Monitoreo_EspacioDelimitado">
+      <End Role="EspacioDelimitado" EntitySet="EspaciosDelimitados" />
+      <End Role="Monitoreo" EntitySet="Monitoreos" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Vehiculo">
     <Key>
@@ -101,6 +107,7 @@
     <Property Name="Eliminado" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Lote" Relationship="ParkingLiteDBModel.FK_VehiculoTransaccion_Lote" FromRole="VehiculoTransaccion" ToRole="Lote" />
     <Property Name="Guid" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Valor" Type="Int32" />
   </EntityType>
   <Association Name="FK_VehiculoTransaccion_Vehiculo">
     <End Type="ParkingLiteDBModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
@@ -152,6 +159,30 @@
       </Principal>
       <Dependent Role="Tarifa">
         <PropertyRef Name="IdLote" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Monitoreo">
+    <Key>
+      <PropertyRef Name="IdMonitoreo" />
+    </Key>
+    <Property Name="IdMonitoreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEspacioDelimitado" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EspacioDelimitado" Relationship="ParkingLiteDBModel.FK_Monitoreo_EspacioDelimitado" FromRole="Monitoreo" ToRole="EspacioDelimitado" />
+  </EntityType>
+  <Association Name="FK_Monitoreo_EspacioDelimitado">
+    <End Type="ParkingLiteDBModel.EspacioDelimitado" Role="EspacioDelimitado" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ParkingLiteDBModel.Monitoreo" Role="Monitoreo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EspacioDelimitado">
+        <PropertyRef Name="IdEspacioDelimitado" />
+      </Principal>
+      <Dependent Role="Monitoreo">
+        <PropertyRef Name="IdEspacioDelimitado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

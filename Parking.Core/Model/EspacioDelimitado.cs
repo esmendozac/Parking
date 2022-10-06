@@ -14,6 +14,12 @@ namespace Parking.Core.Model
     
     public partial class EspacioDelimitado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EspacioDelimitado()
+        {
+            this.Monitoreos = new HashSet<Monitoreo>();
+        }
+    
         public int IdEspacioDelimitado { get; set; }
         public string Coord1 { get; set; }
         public string Coord2 { get; set; }
@@ -27,5 +33,7 @@ namespace Parking.Core.Model
         public Nullable<int> Indice { get; set; }
     
         public virtual Lote Lote { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Monitoreo> Monitoreos { get; set; }
     }
 }

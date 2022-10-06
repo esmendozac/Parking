@@ -17,6 +17,7 @@ namespace Parking.Core.Repositorio
         /// </summary>
 
         ParkingLiteEntities dc;
+
         public ParkingLiteEntities DataContext
         {
             get
@@ -24,7 +25,8 @@ namespace Parking.Core.Repositorio
                 if (this.dc == null)
                 {
                     this.dc = new ParkingLiteEntities();
-                }
+                }     
+                
 
                 return this.dc;
             }
@@ -114,6 +116,11 @@ namespace Parking.Core.Repositorio
             this.DataContext.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
+        public IEnumerable<RowType> CallQuery<RowType>(string sql,params object[] parameters)
+        {
+            return this.DataContext.Database.SqlQuery<RowType>(sql, parameters);
+        }
+
         public int Commit()
         {
             try
@@ -135,3 +142,4 @@ namespace Parking.Core.Repositorio
         }
     }
 }
+
