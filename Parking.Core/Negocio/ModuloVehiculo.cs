@@ -118,9 +118,25 @@ namespace Parking.Core.Negocio
 
             this.Repositorio.Commit();
 
-
             //Consulta ultima tarifa creada
             Model.Tarifa tarifa = this.Repositorio.GetAll<Model.Tarifa>().Where(_t => _t.IdLote == vtDto.IdLote).OrderByDescending(_t => _t.FechaCreacion).FirstOrDefault();
+
+            if (tarifa == null)
+            {
+                tarifa = new Model.Tarifa()
+                {
+                    Activo = true,
+                    FechaCreacion = DateTime.Now,
+                    IdLote = vtDto.IdLote,
+                    PrecioFraccion = 74,
+                    PrecioFijo = 10000,
+                    FraccionMinimaPrecioFijo = 240
+                };
+
+                this.Repositorio.Insert<Model.Tarifa>(tarifa);
+
+                this.Repositorio.Commit();
+            }
 
             Model.ResumenTransaccion resumen = new Model.ResumenTransaccion();
 
